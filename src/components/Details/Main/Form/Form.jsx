@@ -36,7 +36,7 @@ const Form = () => {
 
 	const { segment } = useSpeechContext();
 
-	const createTransaction = useCallback(() => {
+	const createTransaction = () => {
 		const transaction = {
 			...formData,
 			amount: Number(formData.amount),
@@ -44,7 +44,7 @@ const Form = () => {
 		};
 		addTransaction(transaction);
 		setFormData(initialState);
-	}, [addTransaction, formData]);
+	};
 
 	useEffect(() => {
 		if (segment) {
@@ -103,7 +103,8 @@ const Form = () => {
 				}
 			});
 		}
-	}, [segment, createTransaction, formData]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [segment]);
 
 	const selectedCategories =
 		formData.type === 'Income' ? incomeCategories : expenseCategories;
