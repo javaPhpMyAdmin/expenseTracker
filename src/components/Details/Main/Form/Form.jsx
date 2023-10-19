@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import {
 	TextField,
 	Typography,
@@ -36,7 +36,7 @@ const Form = () => {
 
 	const { segment } = useSpeechContext();
 
-	const createTransaction = () => {
+	const createTransaction = useCallback(() => {
 		const transaction = {
 			...formData,
 			amount: Number(formData.amount),
@@ -44,7 +44,7 @@ const Form = () => {
 		};
 		addTransaction(transaction);
 		setFormData(initialState);
-	};
+	}, [addTransaction, formData]);
 
 	useEffect(() => {
 		if (segment) {
